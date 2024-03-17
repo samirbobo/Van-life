@@ -5,6 +5,7 @@ import Vans from "./Pages/Vans";
 import Navbar from "./components/Navbar";
 import "./styles/vanLife.css";
 import Footer from "./components/Footer";
+import "./server";
 
 function App() {
   return (
