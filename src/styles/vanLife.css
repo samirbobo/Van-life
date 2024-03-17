@@ -1,0 +1,170 @@
+/* ======================= Google Fonts ===================== */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+/* ======================= Global CSS ===================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+:root {
+  --main-color: #fff7ed;
+  --text-secone-color: #4d4d4d;
+  --nav-height: 80px;
+  --btn-color: #ff8c38;
+  --orange-color: #ffcc8d;
+}
+body {
+  font-family: "Inter", sans-serif;
+}
+a {
+  text-decoration: none;
+}
+ul {
+  list-style: none;
+}
+.link-button {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  padding: 0.75rem 1.375rem;
+  color: initial;
+  font-weight: 700;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out;
+}
+
+.link-button:hover {
+  transform: translate(1px, 1px);
+}
+/* ======================= Navbar ===================== */
+header {
+  background: var(--main-color);
+}
+.container {
+  width: 90vw;
+  margin: 0 auto;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  height: var(--nav-height);
+  align-items: center;
+}
+.logo img {
+  width: 145px;
+  height: 24px;
+}
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 2rem;
+}
+nav .link {
+  color: var(--text-secone-color);
+  transition: 0.3s linear;
+  font-weight: 700;
+}
+nav .link:hover {
+  color: #161616;
+}
+nav .link.active {
+  color: #161616;
+  position: relative;
+}
+nav .link.active::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: #161616;
+  left: 0;
+  bottom: -1px;
+}
+/* ======================= Home ===================== */
+.home {
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.46), rgba(0, 0, 0, 0.46)),
+    url(/src/images/home.png), no-repeat center center;
+  height: calc(100vh - var(--nav-height));
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  display: grid;
+  place-content: center;
+}
+h1 {
+  color: white;
+  font-size: 4rem;
+  font-weight: 800;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.home p {
+  color: white;
+  line-height: 24px;
+  font-weight: 500;
+  max-width: 900px;
+  font-size: 1.25rem;
+  margin: 1rem auto;
+}
+.home a {
+  background: var(--btn-color);
+  border-radius: 0.25rem;
+  display: block;
+  max-width: 900px;
+  text-align: center;
+  color: white;
+  padding: 1rem;
+  margin: 0 auto;
+}
+/* ======================= About ===================== */
+.about {
+  background: var(--main-color);
+  padding-bottom: 2rem;
+}
+.about-hero-image {
+  width: 100%;
+  height: 425px;
+  object-fit: cover;
+}
+.about-page-content h2 {
+  margin: 2rem 0;
+}
+.about-page-content p {
+  color: #161616;
+  line-height: 22px;
+  max-width: 900px;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+.about-page-cta {
+  background: var(--orange-color);
+  padding: 1.5rem 2rem;
+  border-radius: 0.25rem;
+  max-width: 450px;
+}
+.about-page-cta h3 {
+  max-width: 255px;
+  line-height: 30px;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+.about-page-cta .link-button {
+  background-color: #161616;
+  color: white;
+  border-radius: 10px;
+}
+/* ======================= Footer ===================== */
+footer {
+  background: #252525;
+  height: 74.75px;
+  display: grid;
+  place-content: center;
+}
+footer p {
+  color: #aaaaaa;
+  font-weight: 500;
+}
