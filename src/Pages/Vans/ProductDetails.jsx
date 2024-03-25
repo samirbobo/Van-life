@@ -13,7 +13,7 @@ export default function ProductDetails() {
       const response = await fetch(`/api/vans/${vanId}`);
       const data = await response.json();
       setProductData(data.vans);
-      console.log(data.vans);
+      // console.log(data.vans);
     } catch (err) {
       console.log(err);
       setProductData(null);
@@ -40,7 +40,7 @@ export default function ProductDetails() {
       <div className="container" style={{ paddingTop: "4rem" }}>
         {productData ? (
           <>
-            <Link to="/vans">
+            <Link to="..">
               <svg
                 width="14"
                 height="11"
@@ -71,7 +71,7 @@ export default function ProductDetails() {
                   </div>
                 </header>
                 <p className="descroption">{productData.description}</p>
-                <Link to="vans" className="btn">
+                <Link to=".." className="btn">
                   Rent this van
                 </Link>
               </div>

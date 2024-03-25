@@ -3,7 +3,6 @@ export default function FilterVans({ activeButton, handleActiveBtn }) {
     <div className="filter-btns">
       <button
         className={`filter-btn simple ${activeButton === "simple" && "active"}`}
-        id="simple"
         onClick={() => handleActiveBtn("simple")}
       >
         Simple
@@ -24,13 +23,14 @@ export default function FilterVans({ activeButton, handleActiveBtn }) {
       >
         Rugged
       </button>
-      <button
-        className="filter-clear"
-        id="clear"
-        onClick={() => handleActiveBtn("clear")}
-      >
-        Clear filters
-      </button>
+      {activeButton && (
+        <button
+          className="filter-clear"
+          onClick={() => handleActiveBtn("clear")}
+        >
+          Clear filters
+        </button>
+      )}
     </div>
   );
 }

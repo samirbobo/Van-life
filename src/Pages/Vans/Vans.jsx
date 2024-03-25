@@ -10,6 +10,17 @@ export default function Vans() {
   const [activeButton, setActiveButton] = useState(null);
   const navigate = useNavigate();
 
+  const handleActiveBtn = (type) => {
+    setActiveButton(type);
+    if (type === "clear") {
+      setFilterVans(vansData);
+      setActiveButton(null);
+      return;
+    }
+    const filterdData = vansData.filter((van) => van.type === type);
+    setFilterVans(filterdData);
+  };
+
   const fetchVansData = async () => {
     setLoading(true);
     try {
@@ -24,17 +35,12 @@ export default function Vans() {
     setLoading(false);
   };
 
-  const handleActiveBtn = (type) => {
-    setActiveButton(type);
-    if (type === "clear") {
-      setFilterVans(vansData);
-      return;
-    }
-    const filterdData = vansData.filter((van) => van.type === type);
-    setFilterVans(filterdData);
-  };
-
   useEffect(() => {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
     fetchVansData();
   }, []);
 
