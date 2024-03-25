@@ -9,6 +9,9 @@ export default function Navbar() {
           <img src={logo} alt="logo" />
         </Link>
         <nav>
+          <NavLink to="/host" className="link">
+            Host
+          </NavLink>
           <NavLink to="/about" className="link">
             About
           </NavLink>

@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
+import FilterVans from "../../components/FilterVans";
+import { useNavigate } from "react-router-dom";
+import Loading from "../../components/Loading";
 
 export default function Vans() {
   const [loading, setLoading] = useState(true);
   const [vansData, setVansData] = useState([]);
   const [filterVans, setFilterVans] = useState([]);
   const [activeButton, setActiveButton] = useState(null);
+  const navigate = useNavigate();
 
   const fetchVansData = async () => {
     setLoading(true);
@@ -35,47 +39,15 @@ export default function Vans() {
   }, []);
 
   return loading ? (
-    <div className="center-loadin">
-      <span></span>
-    </div>
+    <Loading />
   ) : (
     <section className="vans">
       <div className="container">
         <h2>Explore our van options</h2>
-        <div className="filter-btns">
-          <button
-            className={`filter-btn simple ${
-              activeButton === "simple" && "active"
-            }`}
-            id="simple"
-            onClick={() => handleActiveBtn("simple")}
-          >
-            Simple
-          </button>
-          <button
-            className={`filter-btn luxury  ${
-              activeButton === "luxury" && "active"
-            }`}
-            onClick={() => handleActiveBtn("luxury")}
-          >
-            Luxury
-          </button>
-          <button
-            className={`filter-btn rugged  ${
-              activeButton === "rugged" && "active"
-            }`}
-            onClick={() => handleActiveBtn("rugged")}
-          >
-            Rugged
-          </button>
-          <button
-            className="filter-clear"
-            id="clear"
-            onClick={() => handleActiveBtn("clear")}
-          >
-            Clear filters
-          </button>
-        </div>
+        <FilterVans
+          activeButton={activeButton}
+          handleActiveBtn={handleActiveBtn}
+        />
         <div className="vans-content">
           {filterVans.map((van) => (
             <article key={van.id} className="van-info">
@@ -87,7 +59,10 @@ export default function Vans() {
                   <p>/day</p>
                 </div>
               </header>
-              <button className={`filter-btn ${van.type} active`}>
+              <button
+                className={`filter-btn ${van.type} active`}
+                onClick={() => navigate(`/vans/${van.id}`)}
+              >
                 {van.type}
               </button>
             </article>

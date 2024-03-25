@@ -19,7 +19,13 @@ createServer({
         "The Modest Explorer is a van designed to get you out of the house and into nature. This beauty is equipped with solar panels, a composting toilet, a water tank and kitchenette. The idea is that you can pack up your home and escape for a weekend or even longer!",
       imageUrl:
         "https://assets.scrimba.com/advanced-react/react-router/modest-explorer.png",
+      allImageUrls: [
+        "https://assets.scrimba.com/advanced-react/react-router/modest-explorer.png",
+        "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRzWNNU5HpfgVGGY6_ohReM3E9CyKv3-R_Qoykq5OdebP9NpWXd",
+        "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTZkJQq45goSpDbzYP5xdjYCjUJxxv55Joh8NpQrj1i55XBaaJK",
+      ],
       type: "simple",
+      hostId: "123",
     });
     server.create("van", {
       id: "2",
@@ -29,7 +35,14 @@ createServer({
         "Beach Bum is a van inspired by surfers and travelers. It was created to be a portable home away from home, but with some cool features in it you won't find in an ordinary camper.",
       imageUrl:
         "https://assets.scrimba.com/advanced-react/react-router/beach-bum.png",
+      allImageUrls: [
+        "https://assets.scrimba.com/advanced-react/react-router/beach-bum.png",
+        "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTMXuY-gSBa7DoxEVJRatjnSK-PEnxkEB36soG4dMwDS-_JMEKv",
+        "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTauIkOJrFyVOpsvL2-7efPiW1yFUB_eQrqrSpX7xf67lq4QZd3",
+        "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcS5i3NS2BfxzqERcODxxriO0vj6eobt_UR-R6d6Z8juskeHUOAn",
+      ],
       type: "rugged",
+      hostId: "123",
     });
     server.create("van", {
       id: "3",
@@ -40,6 +53,7 @@ createServer({
       imageUrl:
         "https://assets.scrimba.com/advanced-react/react-router/reliable-red.png",
       type: "luxury",
+      hostId: "456",
     });
     server.create("van", {
       id: "4",
@@ -50,6 +64,7 @@ createServer({
       imageUrl:
         "https://assets.scrimba.com/advanced-react/react-router/dreamfinder.png",
       type: "simple",
+      hostId: "789",
     });
     server.create("van", {
       id: "5",
@@ -60,6 +75,7 @@ createServer({
       imageUrl:
         "https://assets.scrimba.com/advanced-react/react-router/the-cruiser.png",
       type: "luxury",
+      hostId: "789",
     });
     server.create("van", {
       id: "6",
@@ -69,7 +85,14 @@ createServer({
         "With this van, you can take your travel life to the next level. The Green Wonder is a sustainable vehicle that's perfect for people who are looking for a stylish, eco-friendly mode of transport that can go anywhere.",
       imageUrl:
         "https://assets.scrimba.com/advanced-react/react-router/green-wonder.png",
+      allImageUrls: [
+        "https://assets.scrimba.com/advanced-react/react-router/green-wonder.png",
+        "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRStxkzV17oDMpBerlcEN6ryrm6vYvD859BRutUg29DtPDCq3xQ",
+        "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTxOY9_KiHeiDC1bhpzehbGJvKYP5VgCAlbH3dPQ9szOTxfGnem",
+        "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSYtiVZtPD_ffcYMPvl0lYCdyAZRKyy8RF9ZOKA9lHTddP1G-Qb",
+      ],
       type: "rugged",
+      hostId: "123",
     });
   },
 
@@ -87,6 +110,17 @@ createServer({
     this.get("/vans/:id", (schema, request) => {
       const id = request.params.id;
       return schema.vans.find(id);
+    });
+
+    this.get("/host/vans", (schema) => {
+      // Hard-code the hostId for now
+      return schema.vans.where({ hostId: "123" });
+    });
+
+    this.get("/host/vans/:id", (schema, request) => {
+      // Hard-code the hostId for now
+      const id = request.params.id;
+      return schema.vans.findBy({ id, hostId: "123" });
     });
   },
 });
