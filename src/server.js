@@ -1,4 +1,4 @@
-import { createServer, Model } from "miragejs";
+import { createServer, Model, Response } from "miragejs";
 
 // createServer: it is use to create server like server of backend
 createServer({
@@ -6,6 +6,7 @@ createServer({
 
   models: {
     vans: Model,
+    users: Model,
   },
 
   // عشان اكريت داتا بشكل داينامك ممكن اضيف عليها وامسح منها بدن اعاده كتابه الهيكل كله من الاول
@@ -94,33 +95,68 @@ createServer({
       type: "rugged",
       hostId: "123",
     });
+    server.create("user", {
+      id: "123",
+      email: "samir@gmail.com",
+      password: "123456",
+      name: "samir",
+    });
   },
 
   // routes: it is use to create apis url lik => (get, post, update, delete, ....)
   routes() {
     this.namespace = "api";
+    this.logging = false;
 
     // جيت بتاخد اليو ار ال بتاع ال ابي ايه و عنصر اسمه اسكيمه فيه نسخه من الداتا بيز الوهميه بتاعت السيرفر
     // vans: اسم المودل الي متخزن فيه الداتا
     this.get("/vans", (schema) => {
+      // return new Response(400, {}, { error: "Error fetching data" });
       return schema.vans.all();
     });
 
     // request: باخد منها اي ديه عشان ادور علي نفس فان بنفس الاي ديه دا واعرض بياناته
     this.get("/vans/:id", (schema, request) => {
+      // return new Response(400, {}, { error: "Error fetching data" });
+
       const id = request.params.id;
       return schema.vans.find(id);
     });
 
     this.get("/host/vans", (schema) => {
+      // return new Response(400, {}, { error: "Error fetching data" });
       // Hard-code the hostId for now
       return schema.vans.where({ hostId: "123" });
     });
 
     this.get("/host/vans/:id", (schema, request) => {
+      // return new Response(400, {}, { error: "Error fetching data" });
+
       // Hard-code the hostId for now
       const id = request.params.id;
       return schema.vans.findBy({ id, hostId: "123" });
+    });
+
+    this.post("/login", (schema, request) => {
+      const { email, password } = JSON.parse(request.requestBody);
+      // This is an extremely naive version of authentication. Please don't
+      // do this in the real world, and never save raw text passwords
+      // in your database 😇
+      const foundUser = schema.users.findBy({ email, password });
+      if (!foundUser) {
+        return new Response(
+          401,
+          {},
+          { message: "No user with those credentials found!" }
+        );
+      }
+
+      // At the very least, don't send the password back to the client 😅
+      foundUser.password = undefined;
+      return {
+        user: foundUser,
+        token: "Enjoy your pizza, here's your tokens.",
+      };
     });
   },
 });

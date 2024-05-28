@@ -3,7 +3,7 @@ import aboutImg from "../images/about.png";
 
 export default function About() {
   return (
-    <section className="about">
+    <section className="about pb-2">
       <img src={aboutImg} className="about-hero-image" alt="aboutImg" />
       <div className="container">
         <article className="about-page-content">

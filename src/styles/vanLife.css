@@ -1,5 +1,6 @@
 /* ======================= Google Fonts ===================== */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
 /* ======================= Global CSS ===================== */
 * {
   box-sizing: border-box;
@@ -7,13 +8,17 @@
   padding: 0;
 }
 :root {
+  --nav-height: 60px;
+  --footer-height: 75px;
   --main-color: #fff7ed;
   --text-secone-color: #4d4d4d;
-  --nav-height: 80px;
   --btn-color: #ff8c38;
+  --icon-color: #036666;
+  --backg-input: #fafcfc;
   --orange-color: #ffcc8d;
   --seconde-black: #161616;
   --filter-btns: #ffead0;
+  --label-color: #40444c;
 }
 body {
   font-family: "Inter", sans-serif;
@@ -28,9 +33,13 @@ ul {
 h2 {
   color: var(--seconde-black);
   font-size: 2rem;
+  line-height: 42px;
 }
 main {
-  min-height: calc(79.6vh - var(--nav-height));
+  min-height: calc(100vh - var(--footer-height) - var(--nav-height));
+}
+.pb-2 {
+  padding-bottom: 2rem;
 }
 .link-button {
   display: inline-block;
@@ -51,7 +60,7 @@ main {
 .center-loadin {
   display: grid;
   place-content: center;
-  height: calc(100vh - var(--nav-height));
+  height: calc(100vh - var(--footer-height) - var(--nav-height));
 }
 .center-loadin span {
   width: 50px;
@@ -70,6 +79,7 @@ main {
     transform: rotate(360deg);
   }
 }
+
 /* ======================= Main Navbar ===================== */
 header {
   background: var(--main-color);
@@ -88,11 +98,21 @@ header {
   width: 145px;
   height: 24px;
 }
+.login-icon {
+  height: 18px;
+  width: 18px;
+}
+
+.login-link {
+  display: inline-flex;
+  align-items: center;
+}
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
   column-gap: 2rem;
+  transition: 0.3s linear;
 }
 nav .link {
   color: var(--text-secone-color);
@@ -117,24 +137,92 @@ nav .link.active::after,
 nav .link:hover::after {
   background: var(--seconde-black);
 }
+.header-nav i {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .header {
+    position: relative;
+  }
+  .main-nav {
+    position: absolute;
+    top: 60px;
+    flex-direction: column;
+    background: #fff7ed;
+    width: 100%;
+    align-items: start;
+    height: 0px;
+    z-index: 1;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+      rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  }
+  .main-nav.show {
+    height: 160px;
+    padding: 0.5rem 1rem;
+  }
+  .main-nav .link {
+    padding: 0.5rem 0rem 0.5rem 0.5rem;
+    width: 100%;
+    display: block;
+  }
+  .main-nav .link:hover,
+  .main-nav .link.active {
+    padding-left: 1rem;
+  }
+  .main-nav .link::after {
+    position: absolute;
+    width: 100%;
+    left: 0%;
+  }
+  .main-nav .link:not(:last-child)::after {
+    background: #9a9090;
+  }
+  .main-nav .link:hover:last-child::after,
+  .main-nav .link.active:last-child::after {
+    background: none;
+  }
+  .header-nav {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .header-nav i {
+    display: block;
+    cursor: pointer;
+    transition: 0.3s linear;
+  }
+  .header-nav i:hover {
+    transform: scale(1.2);
+  }
+  .header-nav svg {
+    width: 2rem;
+    height: 2rem;
+  }
+}
 /* ======================= Host Navbar ===================== */
 .nav-host {
   justify-content: flex-start;
-  margin: 2rem 0;
+  padding: 2rem 0 1rem 0;
   gap: 0.5rem 2rem;
   flex-wrap: wrap;
 }
+
 /* ======================= Home ===================== */
 .home {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.46), rgba(0, 0, 0, 0.46)),
     url(/src/images/home.png), no-repeat center center;
-  height: calc(100vh - var(--nav-height));
+  height: calc(100vh - var(--footer-height) - var(--nav-height));
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
   display: grid;
   place-content: center;
+  text-align: center;
 }
 h1 {
   color: white;
@@ -142,24 +230,208 @@ h1 {
   font-weight: 800;
   max-width: 900px;
   margin: 0 auto;
+  transition: 0.3s linear;
 }
 .home p {
   color: white;
-  line-height: 24px;
+  line-height: 35px;
   font-weight: 500;
   max-width: 900px;
   font-size: 1.25rem;
-  margin: 1rem auto;
+  margin: 1.5rem auto;
+  transition: 0.3s linear;
 }
 .btn {
   background: var(--btn-color);
   border-radius: 0.25rem;
   display: block;
+  width: 100%;
   max-width: 900px;
   text-align: center;
   color: white;
   padding: 1rem;
   margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+  .home p {
+    font-size: 1rem;
+  }
+}
+
+/* ======================= Host Dashboard ===================== */
+.welcome {
+  background: #ffead0;
+  border-radius: 5px;
+  padding: 1rem;
+}
+.content-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1rem 0px 1.5rem 0;
+}
+.content-details p {
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
+  text-align: left;
+  color: #4d4d4d;
+}
+.content-details p span {
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+  text-align: left;
+  box-shadow: 0px 1px 0 black;
+}
+.dashboard .link {
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+  text-align: right;
+  color: #161616;
+  transition: 0.3s linear;
+}
+.dashboard .link:hover {
+  box-shadow: 0px 2px 0 #161616;
+}
+.price {
+  font-family: Inter;
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 38px;
+  text-align: left;
+}
+.review-score {
+  background: #ffddb2;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.review-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: 0.3s linear;
+}
+.review-content h3 {
+  font-family: Inter;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 22px;
+  text-align: left;
+  color: var(--seconde-black);
+  transition: 0.3s linear;
+}
+.img-star {
+  width: 26.65px;
+  height: 24px;
+}
+.review-content span {
+  font-family: Inter;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 22px;
+  text-align: left;
+  color: #4d4d4d;
+  transition: 0.3s linear;
+}
+.review-content span strong {
+  font-weight: 700;
+  color: black;
+}
+.van-list {
+  padding: 0 1rem;
+}
+.list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+}
+.list h3 {
+  font-family: Inter;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 22px;
+  text-align: left;
+}
+@media (max-width: 480px) {
+  .review-content {
+    gap: 0.1rem;
+  }
+  .review-content h3 {
+    font-size: 1rem;
+  }
+  .review-content span {
+    font-size: 1rem;
+  }
+}
+/* ======================= Host Income ===================== */
+.income-h2 {
+  font-family: Inter;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 22px;
+  text-align: left;
+  margin: 2rem 0;
+}
+.income p {
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
+  text-align: left;
+  color: #4d4d4d;
+  margin-bottom: 2rem;
+}
+.income p span {
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+  text-align: left;
+  box-shadow: 0px 1px 0 black;
+}
+.income .list {
+  padding: 0 0.5rem;
+}
+.income .list h3 {
+  transition: 0.3s linear;
+}
+.income .list p {
+  margin-bottom: 0rem;
+}
+.income .box-van {
+  justify-content: space-between;
+}
+.income .box-van h4 {
+  font-family: Inter;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 31.66px;
+  text-align: left;
+}
+.income .box-van span {
+  font-family: Inter;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 31.66px;
+  text-align: right;
+  color: #4d4d4d;
+}
+@media (max-width: 480px) {
+  .income .list h3 {
+    font-size: 1rem;
+  }
 }
 /* ======================= Host Vans ===================== */
 .box-van {
@@ -324,10 +596,119 @@ h1 {
     font-size: 14px;
   }
 }
-/* ======================= About ===================== */
-.about {
-  padding-bottom: 2rem;
+/* ======================= Host Reviews ===================== */
+.reviews .list {
+  margin: 1rem 0 2rem 0;
 }
+.reviews .list p {
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
+  text-align: left;
+  color: #4d4d4d;
+  margin-bottom: 0rem;
+}
+.reviews p span {
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+  text-align: left;
+  box-shadow: 0px 1px 0 black;
+}
+.rate-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.rate-header h3 {
+  font-family: Inter;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 22.92px;
+  text-align: left;
+}
+.rate-header p {
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
+  text-align: left;
+  margin-bottom: 0rem;
+}
+.rate-value {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  margin: 1rem 0;
+}
+.rate-value p {
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22.92px;
+  text-align: left;
+  color: #4d4d4d;
+  width: 54px;
+}
+.rate-value p:last-child {
+  text-align: right;
+}
+.bar {
+  flex: 1;
+  border-radius: 0.5rem;
+  border: 8px solid #b9b9b9;
+}
+.bar.active {
+  border: 8px solid #ff8c38;
+}
+.reviews-content {
+  margin: 1rem 0;
+}
+.reviews-content h3 {
+  font-family: Inter;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 22.92px;
+  text-align: left;
+}
+.stars {
+  margin: 1rem 0;
+}
+.review-name {
+  font-family: Inter;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 22.92px;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.review-name span {
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 31.66px;
+  text-align: left;
+  color: #8c8c8c;
+  box-shadow: none !important;
+}
+.review-value {
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22.16px;
+  text-align: left;
+}
+.line {
+  margin: 2rem auto;
+  max-width: 80%;
+  border: 1px solid #c7c7c7;
+}
+/* ======================= About ===================== */
 .about-hero-image {
   width: 100%;
   height: 425px;
@@ -360,11 +741,12 @@ h1 {
   color: white;
   border-radius: 10px;
 }
+
 /* ======================= Vans ===================== */
 .vans {
+  margin-top: 1rem;
 }
 .vans h2 {
-  font-size: 2rem;
   font-weight: 800;
   line-height: 33.65px;
 }
@@ -442,9 +824,10 @@ h1 {
     margin-bottom: 1rem;
   }
 }
+
 /* ======================= Van Details ===================== */
 .product-details {
-  min-height: calc(85vh - var(--nav-height));
+  min-height: calc(100vh - var(--footer-height) - var(--nav-height));
 }
 .details {
   margin-top: 2rem;
@@ -484,11 +867,165 @@ h1 {
     text-align: right;
   }
 }
+
+/* ======================= Login Page ===================== */
+.login-page {
+  padding-top: 2rem;
+  display: grid;
+  place-content: center;
+}
+.login-page h2 {
+  font-weight: 700;
+  line-height: 24px;
+  text-align: center;
+  margin-bottom: 2rem;
+  transition: 0.3s linear;
+}
+.invaild-mes {
+  text-align: center;
+  color: red;
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+.login-page form {
+  background: white;
+  padding: 2rem 2rem 1rem;
+  border-radius: 1rem;
+  width: 90vw;
+  max-width: 580px;
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.06),
+    0px 1px 3px 0 rgba(16, 24, 40, 0.1);
+  transition: 0.3s linear;
+}
+.login-page form {
+  display: flex;
+  flex-direction: column;
+}
+.login-page form label:first-child {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+.login-page form label {
+  color: var(--label-color);
+  font-weight: 500;
+  line-height: 24px;
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  position: relative;
+}
+.login-page form input {
+  width: 100%;
+  margin-top: 0.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid #d9d9d9;
+  padding: 0.75rem 1rem;
+  display: block;
+  background: var(--backg-input);
+  outline-color: #d9d9d9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.login-page form input::placeholder {
+  color: #6b7084;
+  font-weight: 500;
+  line-height: 24px;
+  font-size: 1rem;
+  transition: 0.2s linear;
+}
+.login-page form input:focus::placeholder {
+  opacity: 0;
+}
+.login-page form label .icon {
+  position: absolute;
+  right: 1rem;
+  bottom: 0.75rem;
+  cursor: pointer;
+}
+.mes-error {
+  color: red;
+  font-weight: 500;
+  line-height: 21px;
+  font-size: 14px;
+}
+.mes-error.pass {
+  margin-top: -0.5rem;
+  margin-bottom: 0.5rem;
+}
+.login-page form .text-account {
+  font-weight: 500;
+  line-height: 21px;
+  color: #32343d;
+}
+.login-page form .text-account a {
+  color: #ff8c38;
+  text-decoration: underline;
+}
+.login-page form .submit {
+  margin-top: 1rem;
+  border-radius: 0.75rem;
+  padding: 1rem 1.75rem;
+  background: #ff8c38;
+  border: none;
+  color: #ffffff;
+  font-family: "Inter";
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.25rem;
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+}
+.login-page form .submit:disabled {
+  background-color: #aaaaaa;
+  cursor: not-allowed;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid white;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spinner 0.8s linear infinite;
+}
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 480px) {
+  .login-page h2 {
+    font-size: 1.5rem;
+  }
+  .login-page form {
+    padding: 3rem 1rem;
+  }
+}
+
+/* ======================= Page-404 ===================== */
+.page-404 {
+  display: grid;
+  place-content: center;
+  height: calc(100vh - var(--footer-height) - var(--nav-height));
+}
+.page-404 .btn {
+  background: var(--seconde-black);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 31.66px;
+  padding: 0.5rem;
+  margin-top: 1.5rem;
+}
+
 /* ======================= Footer ===================== */
 footer {
-  margin-top: 1.5rem;
   background: #252525;
-  height: 74.75px;
+  height: var(--footer-height);
   display: grid;
   place-content: center;
 }

@@ -1,24 +1,8 @@
-import { useEffect, useState } from "react";
-import { Link, NavLink, Outlet, useParams } from "react-router-dom";
-import Loading from "../../components/Loading";
+import { useEffect } from "react";
+import { Await, Link, NavLink, Outlet, useLoaderData } from "react-router-dom";
 
 export default function HostVanDetails() {
-  const [vanData, setVanData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const { vanId } = useParams();
-
-  const fetchVanDetails = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch(`/api/host/vans/${vanId}`);
-      const { vans } = await res.json();
-      setVanData(vans);
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const promiseData = useLoaderData();
 
   useEffect(() => {
     window.scroll({
@@ -26,16 +10,11 @@ export default function HostVanDetails() {
       left: 0,
       behavior: "smooth",
     });
-    fetchVanDetails();
   }, []);
-
-  if (loading) {
-    return <Loading />;
-  }
 
   // cd../  اكني بستخدم طريقه الترمنال ف الرجوع للملف السابق ولكن هنا بيرجع لاول اب عندي في النستت روات
   // Example: url => /host/vans/1  to  url => /host/
-  //relative="path": بتحل المشكله بتاعت الرجوع الي اول اب ف النتستت روات وبترجع مره واحده من ال يو ار ال
+  // relative="path": بتحل المشكله بتاعت الرجوع الي اول اب ف النتستت روات وبترجع مره واحده من ال يو ار ال
   // Example: url => /host/vans/1  to  url => /host/vans/
 
   return (
@@ -61,35 +40,56 @@ export default function HostVanDetails() {
         </svg>
         Back to all vans
       </Link>
-      <article className="host-van-details">
-        <div className="headr-van-details">
-          <img className="van-img" src={vanData.imageUrl} alt={vanData.name} />
-          <div className="header-content">
-            <button className={`filter-btn ${vanData.type} active`}>
-              {vanData.type}
-            </button>
-            <h3>{vanData.name}</h3>
-            <p>
-              ${vanData.price}
-              <span>/day</span>
-            </p>
-          </div>
-        </div>
-        <nav className="nav-host">
-          <NavLink to="." end className="link">
-            Details
-          </NavLink>
-          <NavLink to="pricing" className="link">
-            Pricing
-          </NavLink>
-          <NavLink to="photos" className="link">
-            Photos
-          </NavLink>
-        </nav>
-        <div className="content-van-details">
-          <Outlet context={[vanData]} />
-        </div>
-      </article>
+      <Await resolve={promiseData.data}>
+        {(data) => {
+          if (!data) {
+            return (
+              <section className="container" style={{ textAlign: "center" }}>
+                <h2 style={{ paddingTop: "12rem" }}>
+                  There is no data for this van
+                </h2>
+                <h4>500 - Bad-request</h4>
+              </section>
+            );
+          }
+
+          return (
+            <article className="host-van-details">
+              <div className="headr-van-details">
+                <img
+                  className="van-img"
+                  src={data?.vans?.imageUrl}
+                  alt={data?.vans?.name}
+                />
+                <div className="header-content">
+                  <button className={`filter-btn ${data?.vans?.type} active`}>
+                    {data?.vans?.type}
+                  </button>
+                  <h3>{data?.vans?.name}</h3>
+                  <p>
+                    ${data?.vans?.price}
+                    <span>/day</span>
+                  </p>
+                </div>
+              </div>
+              <nav className="nav-host">
+                <NavLink to="." end className="link">
+                  Details
+                </NavLink>
+                <NavLink to="pricing" className="link">
+                  Pricing
+                </NavLink>
+                <NavLink to="photos" className="link">
+                  Photos
+                </NavLink>
+              </nav>
+              <div className="content-van-details">
+                <Outlet context={[data?.vans]} />
+              </div>
+            </article>
+          );
+        }}
+      </Await>
     </section>
   );
 }
