@@ -18,7 +18,7 @@ export default function HostVanDetails() {
   // Example: url => /host/vans/1  to  url => /host/vans/
 
   return (
-    <section>
+    <section style={{paddingBottom: "2rem"}}>
       <Link
         to=".."
         relative="path"
